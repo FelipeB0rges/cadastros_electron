@@ -1,38 +1,34 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import AppBar from './components/app-bar';
-import Welcome from './components/welcome';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import './App.scss';
+import Home from './components/Home/Home';
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
+import NotFound from './components/NotFound/NotFound';
 
-export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            pageRouted: Welcome
-        };
-    }
+class App extends Component {
 
-    routePage = (page) => {
-        this.setState({ pageRouted: page })
-    }
 
-    render() {
-        return (
-            <div>
-                <Dialog fullScreen={Boolean("true")} open={Boolean("true")}>
-                    <DialogTitle style={{ padding: 0 }}>
-                        <AppBar mainApp={this}></AppBar>
-                    </DialogTitle>
+  render() {
 
-                    <DialogContent className={'mainContent'}>
-                        <Router>
-                            <Route component={this.state.pageRouted} />
-                        </Router>
-                    </DialogContent>
-                </Dialog>
-            </div>
-        );
-    }
+    return (
+      <>
+        <Router>
+          <Header />
+          <Switch>
+            <Route exact path='/' component={Home}>
+            </Route>
+            <Route path='*' component={NotFound}>
+            </Route>
+          </Switch>
+          <Footer />
+
+        </Router>
+      </>
+    );
+  }
 }
+
+
+
+export default App;
